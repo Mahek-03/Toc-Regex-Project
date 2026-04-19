@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopEase — Order Validator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Background decoration -->
+  <div class="bg-blob blob1"></div>
+  <div class="bg-blob blob2"></div>
+  <div class="bg-blob blob3"></div>
+
+  <div class="page-wrapper">
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="logo">
+        <span class="logo-icon">🛒</span>
+        <span class="logo-text">Shop<span class="accent">Ease</span></span>
+      </div>
+      <div class="header-tag">Order Checkout</div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar-wrapper">
+      <div class="progress-step active" id="step-indicator-1">
+        <div class="step-dot">1</div>
+        <span>Personal Info</span>
+      </div>
+      <div class="progress-line" id="line-1"></div>
+      <div class="progress-step" id="step-indicator-2">
+        <div class="step-dot">2</div>
+        <span>Order Details</span>
+      </div>
+      <div class="progress-line" id="line-2"></div>
+      <div class="progress-step" id="step-indicator-3">
+        <div class="step-dot">3</div>
+        <span>Payment</span>
+      </div>
+    </div>
+
+    <!-- Main Form Card -->
+    <main class="form-card">
+
+      <form id="orderForm" novalidate>
+
+        <!-- ========== SECTION 1: Personal Info ========== -->
+        <section class="form-section active-section" id="section-1">
+          <div class="section-header">
+            <span class="section-number">01</span>
+            <div>
+              <h2 class="section-title">Personal Information</h2>
+              <p class="section-subtitle">Let us know who you are</p>
+            </div>
+          </div>
+
+          <div class="fields-grid">
+
+            <!-- Full Name -->
+            <div class="field-group full-width">
+              <label for="fullName" class="field-label">
+                Full Name <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">👤</span>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  placeholder="e.g. Rahul Sharma"
+                  autocomplete="off"
+                  maxlength="50"
+                />
+                <span class="validation-icon" id="icon-fullName"></span>
+              </div>
+              <p class="field-hint">Only letters and spaces, 3–50 characters</p>
+              <p class="error-msg" id="err-fullName"></p>
+              <p class="success-msg" id="ok-fullName"></p>
+            </div>
+
+            <!-- Email -->
+            <div class="field-group">
+              <label for="email" class="field-label">
+                Email Address <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">✉️</span>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  autocomplete="off"
+                />
+                <span class="validation-icon" id="icon-email"></span>
+              </div>
+              <p class="field-hint">Standard email format required</p>
+              <p class="error-msg" id="err-email"></p>
+              <p class="success-msg" id="ok-email"></p>
+            </div>
+
+            <!-- Mobile -->
+            <div class="field-group">
+              <label for="mobile" class="field-label">
+                Mobile Number <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">📱</span>
+                <span class="prefix-tag">+91</span>
+                <input
+                  type="text"
+                  id="mobile"
+                  name="mobile"
+                  placeholder="9876543210"
+                  maxlength="10"
+                  autocomplete="off"
+                />
+                <span class="validation-icon" id="icon-mobile"></span>
+              </div>
+              <p class="field-hint">10-digit Indian mobile number (starts with 6–9)</p>
+              <p class="error-msg" id="err-mobile"></p>
+              <p class="success-msg" id="ok-mobile"></p>
+            </div>
+
+          </div>
+
+          <div class="section-actions">
+            <button type="button" class="btn-next" id="btn-next-1" onclick="goToSection(2)">
+              Continue to Order Details <span>→</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- ========== SECTION 2: Order Details ========== -->
+        <section class="form-section" id="section-2">
+          <div class="section-header">
+            <span class="section-number">02</span>
+            <div>
+              <h2 class="section-title">Order Details</h2>
+              <p class="section-subtitle">Where and what to deliver</p>
+            </div>
+          </div>
+
+          <div class="fields-grid">
+
+            <!-- Order ID -->
+            <div class="field-group">
+              <label for="orderId" class="field-label">
+                Order ID <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">🔖</span>
+                <input
+                  type="text"
+                  id="orderId"
+                  name="orderId"
+                  placeholder="ORD-AB12CD34"
+                  maxlength="12"
+                  autocomplete="off"
+                  style="text-transform:uppercase"
+                />
+                <span class="validation-icon" id="icon-orderId"></span>
+              </div>
+              <p class="field-hint">Format: ORD- followed by 8 alphanumeric characters</p>
+              <p class="error-msg" id="err-orderId"></p>
+              <p class="success-msg" id="ok-orderId"></p>
+            </div>
+
+            <!-- Quantity -->
+            <div class="field-group">
+              <label for="quantity" class="field-label">
+                Quantity <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">📦</span>
+                <input
+                  type="text"
+                  id="quantity"
+                  name="quantity"
+                  placeholder="1 to 99"
+                  maxlength="2"
+                  autocomplete="off"
+                />
+                <span class="validation-icon" id="icon-quantity"></span>
+              </div>
+              <p class="field-hint">Number between 1 and 99</p>
+              <p class="error-msg" id="err-quantity"></p>
+              <p class="success-msg" id="ok-quantity"></p>
+            </div>
+
+            <!-- Pincode -->
+            <div class="field-group">
+              <label for="pincode" class="field-label">
+                Delivery Pincode <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">📍</span>
+                <input
+                  type="text"
+                  id="pincode"
+                  name="pincode"
+                  placeholder="411001"
+                  maxlength="6"
+                  autocomplete="off"
+                />
+                <span class="validation-icon" id="icon-pincode"></span>
+              </div>
+              <p class="field-hint">6-digit Indian pincode (non-zero first digit)</p>
+              <p class="error-msg" id="err-pincode"></p>
+              <p class="success-msg" id="ok-pincode"></p>
+            </div>
+
+            <!-- Delivery Date -->
+            <div class="field-group">
+              <label for="deliveryDate" class="field-label">
+                Preferred Delivery Date <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">📅</span>
+                <input
+                  type="text"
+                  id="deliveryDate"
+                  name="deliveryDate"
+                  placeholder="DD/MM/YYYY"
+                  maxlength="10"
+                  autocomplete="off"
+                />
+                <span class="validation-icon" id="icon-deliveryDate"></span>
+              </div>
+              <p class="field-hint">Format: DD/MM/YYYY (future dates only)</p>
+              <p class="error-msg" id="err-deliveryDate"></p>
+              <p class="success-msg" id="ok-deliveryDate"></p>
+            </div>
+
+            <!-- Coupon -->
+            <div class="field-group full-width">
+              <label for="coupon" class="field-label">
+                Coupon Code <span class="optional">(Optional)</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">🎟️</span>
+                <input
+                  type="text"
+                  id="coupon"
+                  name="coupon"
+                  placeholder="e.g. SAVE20 or FEST2025"
+                  maxlength="10"
+                  autocomplete="off"
+                  style="text-transform:uppercase"
+                />
+                <span class="validation-icon" id="icon-coupon"></span>
+              </div>
+              <p class="field-hint">5–10 uppercase letters and digits only (leave blank to skip)</p>
+              <p class="error-msg" id="err-coupon"></p>
+              <p class="success-msg" id="ok-coupon"></p>
+            </div>
+
+          </div>
+
+          <div class="section-actions">
+            <button type="button" class="btn-back" onclick="goToSection(1)">
+              <span>←</span> Back
+            </button>
+            <button type="button" class="btn-next" id="btn-next-2" onclick="goToSection(3)">
+              Continue to Payment <span>→</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- ========== SECTION 3: Payment ========== -->
+        <section class="form-section" id="section-3">
+          <div class="section-header">
+            <span class="section-number">03</span>
+            <div>
+              <h2 class="section-title">Payment Info</h2>
+              <p class="section-subtitle">Secure and encrypted</p>
+            </div>
+          </div>
+
+          <!-- Payment Toggle -->
+          <div class="payment-toggle">
+            <button type="button" class="toggle-btn active" id="toggle-upi" onclick="switchPayment('upi')">
+              📲 UPI
+            </button>
+            <button type="button" class="toggle-btn" id="toggle-card" onclick="switchPayment('card')">
+              💳 Card
+            </button>
+          </div>
+
+          <!-- UPI Fields -->
+          <div class="fields-grid" id="upi-fields">
+            <div class="field-group full-width">
+              <label for="upiId" class="field-label">
+                UPI ID <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">📲</span>
+                <input
+                  type="text"
+                  id="upiId"
+                  name="upiId"
+                  placeholder="yourname@upi"
+                  autocomplete="off"
+                />
+                <span class="validation-icon" id="icon-upiId"></span>
+              </div>
+              <p class="field-hint">Format: username@bankname (e.g. dhruvi@okicici)</p>
+              <p class="error-msg" id="err-upiId"></p>
+              <p class="success-msg" id="ok-upiId"></p>
+            </div>
+          </div>
+
+          <!-- Card Fields -->
+          <div class="fields-grid hidden" id="card-fields">
+            <div class="field-group full-width">
+              <label for="cardNumber" class="field-label">
+                Card Number <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">💳</span>
+                <input
+                  type="text"
+                  id="cardNumber"
+                  name="cardNumber"
+                  placeholder="XXXX XXXX XXXX XXXX"
+                  maxlength="19"
+                  autocomplete="off"
+                />
+                <span class="validation-icon" id="icon-cardNumber"></span>
+              </div>
+              <p class="field-hint">16-digit card number (spaces allowed)</p>
+              <p class="error-msg" id="err-cardNumber"></p>
+              <p class="success-msg" id="ok-cardNumber"></p>
+            </div>
+
+            <div class="field-group">
+              <label for="cardExpiry" class="field-label">
+                Expiry Date <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">📆</span>
+                <input
+                  type="text"
+                  id="cardExpiry"
+                  name="cardExpiry"
+                  placeholder="MM/YY"
+                  maxlength="5"
+                  autocomplete="off"
+                />
+                <span class="validation-icon" id="icon-cardExpiry"></span>
+              </div>
+              <p class="field-hint">Format: MM/YY</p>
+              <p class="error-msg" id="err-cardExpiry"></p>
+              <p class="success-msg" id="ok-cardExpiry"></p>
+            </div>
+
+            <div class="field-group">
+              <label for="cvv" class="field-label">
+                CVV <span class="required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">🔒</span>
+                <input
+                  type="password"
+                  id="cvv"
+                  name="cvv"
+                  placeholder="3 or 4 digits"
+                  maxlength="4"
+                  autocomplete="off"
+                />
+                <span class="validation-icon" id="icon-cvv"></span>
+              </div>
+              <p class="field-hint">3-digit CVV (4-digit for Amex)</p>
+              <p class="error-msg" id="err-cvv"></p>
+              <p class="success-msg" id="ok-cvv"></p>
+            </div>
+          </div>
+
+          <div class="section-actions">
+            <button type="button" class="btn-back" onclick="goToSection(2)">
+              <span>←</span> Back
+            </button>
+            <button type="submit" class="btn-submit" id="btn-submit">
+              <span class="btn-text">Place Order 🎉</span>
+              <span class="btn-loader hidden" id="submitLoader">Processing...</span>
+            </button>
+          </div>
+        </section>
+
+      </form>
+
+      <!-- ========== SUCCESS SCREEN ========== -->
+      <div class="success-screen hidden" id="successScreen">
+        <div class="success-animation">
+          <div class="checkmark-circle">
+            <div class="checkmark">✓</div>
+          </div>
+        </div>
+        <h2 class="success-title">Order Placed!</h2>
+        <p class="success-subtitle">Your order has been validated and confirmed. You'll receive a confirmation shortly.</p>
+        <div class="order-summary" id="orderSummary"></div>
+        <button class="btn-new-order" onclick="resetForm()">Place Another Order</button>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="validation.js"></script>
+</body>
+</html>

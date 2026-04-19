@@ -1,0 +1,500 @@
+/* =====================================================
+   ShopEase — Online Shopping Order Validator
+   Style Sheet | TOC Mini-Project Topic 9
+   Theme: Minimalist Monochrome
+   ===================================================== */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  --bg:          #ffffff;
+  --bg-card:     #ffffff;
+  --bg-input:    #ffffff;
+  --bg-hover:    #f5f5f5;
+  --border:      #d1d5db;
+  --border-focus:#000000;
+
+  --accent:      #000000;
+  --accent-glow: transparent;
+  --accent2:     #333333;
+  
+  /* Using black/gray for states to maintain monochrome */
+  --success:     #000000;
+  --success-bg:  #fafafa;
+  --error:       #000000;
+  --error-bg:    #ffffff;
+  --warning:     #666666;
+
+  --text-primary:   #000000;
+  --text-secondary: #4b5563;
+  --text-muted:     #9ca3af;
+
+  /* Unified clean sans-serif */
+  --font-display: 'DM Sans', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  /* Sharp edges, no shadows */
+  --radius-sm:  0px;
+  --radius-md:  0px;
+  --radius-lg:  0px;
+  --shadow-card: none;
+  --shadow-glow: none;
+}
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Background Blobs (Hidden for minimalism) ---------- */
+.bg-blob {
+  display: none;
+}
+
+/* ---------- Page Wrapper ---------- */
+.page-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  animation: fadeIn 0.8s ease both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ---------- Site Header ---------- */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--accent);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+}
+.logo-icon { 
+  font-size: 24px; 
+  filter: grayscale(100%) contrast(200%); 
+}
+.accent { color: var(--accent); }
+.header-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  border: 1px solid var(--accent);
+  padding: 4px 12px;
+}
+
+/* ---------- Progress Bar ---------- */
+.progress-bar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 40px;
+  background: transparent;
+  padding: 10px 0;
+}
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 100px;
+}
+.step-dot {
+  width: 28px; height: 28px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+.progress-step.active .step-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.progress-step.done .step-dot {
+  background: var(--bg);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.progress-step span {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+.progress-step.active span { color: var(--accent); font-weight: 700; }
+.progress-step.done span  { color: var(--accent); }
+.progress-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  margin: 0 10px;
+  margin-bottom: 24px;
+  transition: background 0.3s;
+}
+.progress-line.filled { background: var(--accent); }
+
+/* ---------- Form Card ---------- */
+.form-card {
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  padding: 48px;
+}
+
+/* ---------- Form Section ---------- */
+.form-section {
+  display: none;
+  animation: fadeOutIn 0.4s ease both;
+}
+.form-section.active-section { display: block; }
+@keyframes fadeOutIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.section-number {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--accent);
+  line-height: 1;
+  user-select: none;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.section-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* ---------- Fields Grid ---------- */
+.fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 24px;
+  margin-bottom: 16px;
+}
+.field-group { display: flex; flex-direction: column; gap: 8px; }
+.full-width   { grid-column: 1 / -1; }
+
+/* ---------- Labels ---------- */
+.field-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.required { color: var(--accent); }
+.optional  { color: var(--text-muted); font-weight: 400; text-transform: none; }
+
+/* ---------- Input Wrapper ---------- */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 2;
+  filter: grayscale(100%);
+}
+.prefix-tag {
+  position: absolute;
+  left: 40px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+input {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 14px 44px 14px 42px;
+  outline: none;
+  transition: all 0.2s ease;
+  -webkit-appearance: none;
+}
+.prefix-tag + input {
+  padding-left: 68px;
+}
+input::placeholder { color: var(--text-muted); font-size: 13px; font-weight: 400; }
+input:hover  { border-color: var(--text-muted); }
+input:focus  {
+  border-color: var(--accent);
+  background: var(--bg);
+}
+/* Monochrome states: bold border for valid, dashed border for invalid */
+input.valid   { 
+  border-color: var(--accent); 
+  border-width: 2px;
+  background: var(--success-bg); 
+}
+input.invalid { 
+  border-color: var(--accent);   
+  border-style: dashed;
+  border-width: 2px;
+  background: var(--error-bg); 
+}
+
+.validation-icon {
+  position: absolute;
+  right: 14px;
+  font-size: 14px;
+  pointer-events: none;
+  transition: all 0.3s;
+  filter: grayscale(100%);
+}
+
+/* ---------- Messages ---------- */
+.field-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.error-msg, .success-msg {
+  font-size: 11.5px;
+  min-height: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  animation: fadeIn 0.2s ease;
+}
+.error-msg { color: var(--accent); }
+.success-msg { color: var(--text-secondary); }
+
+/* ---------- Payment Toggle ---------- */
+.payment-toggle {
+  display: flex;
+  gap: 0;
+  margin-bottom: 32px;
+  border: 1px solid var(--accent);
+}
+.toggle-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+.toggle-btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+.hidden { display: none !important; }
+
+/* ---------- Section Actions ---------- */
+.section-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.btn-back {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 12px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.btn-back:hover { color: var(--accent); }
+
+.btn-next, .btn-submit {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 14px 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+.btn-next:hover, .btn-submit:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+/* ---------- Success Screen ---------- */
+.success-screen {
+  text-align: center;
+  padding: 20px 0;
+  animation: fadeIn 0.6s ease both;
+}
+.success-animation {
+  margin: 0 auto 32px;
+  display: flex;
+  justify-content: center;
+}
+.checkmark-circle {
+  width: 80px; height: 80px;
+  background: transparent;
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.checkmark {
+  font-size: 32px;
+  color: var(--accent);
+}
+.success-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+.success-subtitle {
+  color: var(--text-secondary);
+  font-size: 14px;
+  max-width: 400px;
+  margin: 0 auto 32px;
+}
+.order-summary {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 24px;
+  text-align: left;
+  margin-bottom: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+}
+.order-summary-item { font-size: 13px; }
+.order-summary-item .label { 
+  color: var(--text-muted); 
+  font-size: 10px; 
+  text-transform: uppercase; 
+  letter-spacing: 1px; 
+  display: block; 
+  margin-bottom: 4px; 
+}
+.order-summary-item .value { color: var(--text-primary); font-weight: 500; }
+
+.btn-new-order {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-new-order:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ---------- Site Footer ---------- */
+.site-footer {
+  text-align: center;
+  margin-top: 40px;
+  color: var(--text-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .form-card { padding: 32px 20px; border-left: none; border-right: none; }
+  .fields-grid { grid-template-columns: 1fr; gap: 24px; }
+  .progress-bar-wrapper { margin-bottom: 24px; }
+  .progress-step span { display: none; }
+  .progress-step { min-width: 50px; }
+  .section-number { font-size: 24px; }
+  .order-summary { grid-template-columns: 1fr; }
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); }
